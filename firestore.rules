@@ -1,0 +1,82 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    // Collection: users
+    // Fields: uid, email, name, role, createdAt
+    //
+    // Collection: serviceOrders
+    // Fields: clientName, clientPhone, address, houseNumber, serviceType, description, status, createdAt, startedAt, finishedAt, assignedTechnicianId, photos, beforePhotos, afterPhotos, materials, observations, signature, isSignedByClient, preInspectionSignatureClient, preInspectionSignatureTech, isPreInspectionSigned, isWarehouseRequested, preInspection, completionChecklist
+    //
+    // Collection: materials
+    // Fields: name, unit, price, stock, createdAt
+    //
+    // Collection: documentTemplates
+    // Fields: name, content, type, createdAt
+    //
+    // Collection: notifications
+    // Fields: title, message, type, osId, read, createdAt
+    // ===============================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        (request.auth.token.email == "pabloplacidoo@gmail.com" || 
+         (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'));
+    }
+
+    function isTechnician() {
+      return isAuthenticated() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'technician';
+    }
+
+    match /users/{userId} {
+      allow get: if isAuthenticated();
+      allow list: if isAuthenticated();
+      allow write: if isAdmin() || (isAuthenticated() && request.auth.uid == userId);
+    }
+
+    match /materials/{materialId} {
+      allow get, list: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    match /serviceOrders/{orderId} {
+      allow get, list: if isAuthenticated();
+      allow create: if isAdmin();
+      allow update: if isAdmin() || 
+        (isTechnician() && 
+         resource.data.assignedTechnicianId == request.auth.uid && 
+         resource.data.status != 'Concluída');
+      allow delete: if isAdmin();
+    }
+
+    match /documentTemplates/{templateId} {
+      allow get, list: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    match /notifications/{notificationId} {
+      allow list, get: if isAdmin();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin();
+    }
+
+    match /settings/{settingId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    match /userInvites/{email} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+  }
+}

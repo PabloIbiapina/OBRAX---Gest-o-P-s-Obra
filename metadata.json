@@ -1,0 +1,5 @@
+{
+  "name": "OBRAX - Gestão Pós-Obra",
+  "description": "Sistema avançado de gestão pós-obra com motor de patologia PENG, diagnóstico de falhas críticas e dashboard de economia por normalização.",
+  "requestFramePermissions": ["camera", "microphone", "geolocation"]
+}

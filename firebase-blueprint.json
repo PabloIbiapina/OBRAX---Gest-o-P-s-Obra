@@ -1,0 +1,116 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "System users (Admins and Technicians)",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "technician"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Material": {
+      "title": "Material",
+      "description": "Pre-registered materials database",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "unit": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "unit"]
+    },
+    "DocumentTemplate": {
+      "title": "Document Template",
+      "description": "Templates for documents that need to be signed",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "content": { "type": "string" },
+        "type": { "type": "string", "enum": ["start", "finish", "general"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "content", "type"]
+    },
+    "ServiceOrder": {
+      "title": "Service Order",
+      "description": "Technical assistance service orders",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "clientName": { "type": "string" },
+        "clientPhone": { "type": "string" },
+        "address": { "type": "string" },
+        "houseNumber": { "type": "string" },
+        "serviceType": { "type": "string", "enum": ["elétrica", "hidráulica", "pintura", "manutenção geral"] },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["Aberta", "Em andamento", "Concluída"] },
+        "isRework": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "assignedTechnicianId": { "type": "string" },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "finishedAt": { "type": "string", "format": "date-time" },
+        "photos": { "type": "array", "items": { "type": "string" } },
+        "beforePhotos": { "type": "array", "items": { "type": "string" } },
+        "afterPhotos": { "type": "array", "items": { "type": "string" } },
+        "attachments": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "url": { "type": "string" } } } },
+        "materials": { "type": "array", "items": { "type": "object" } },
+        "observations": { "type": "string" },
+        "signature": { "type": "string" },
+        "isSignedByClient": { "type": "boolean" },
+        "preInspectionSignatureClient": { "type": "string" },
+        "preInspectionSignatureTech": { "type": "string" },
+        "isPreInspectionSigned": { "type": "boolean" },
+        "isWarehouseRequested": { "type": "boolean" },
+        "requiredDocuments": { "type": "array", "items": { "type": "object" } },
+        "preInspection": { "type": "array", "items": { "type": "object" } },
+        "completionChecklist": { "type": "array", "items": { "type": "object" } }
+      },
+      "required": ["clientName", "clientPhone", "address", "serviceType", "description", "status", "createdAt"]
+    },
+    "AppNotification": {
+      "title": "Notification",
+      "description": "System notifications for administrators",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string", "enum": ["new_os", "os_completed", "os_delayed"] },
+        "osId": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "message", "type", "osId", "read", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users": {
+      "schema": "User",
+      "description": "Collection of system users"
+    },
+    "materials": {
+      "schema": "Material",
+      "description": "Database of registered materials"
+    },
+    "serviceOrders": {
+      "schema": "ServiceOrder",
+      "description": "Collection of service orders"
+    },
+    "documentTemplates": {
+      "schema": "DocumentTemplate",
+      "description": "Collection of document templates"
+    },
+    "notifications": {
+      "schema": "AppNotification",
+      "description": "Collection of system notifications"
+    }
+  }
+}

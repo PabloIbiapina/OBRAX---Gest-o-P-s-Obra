@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg-color: #f1f3f5;
+  --surface-color: #ffffff;
+  --border-color: rgba(0,0,0,0.08);
+  --text-color: #1d1d1f;
+  --primary-color: #0071e3;
+  --primary-contrast: #ffffff;
+  --success-color: #34c759;
+  --warning-color: #ff9500;
+  --danger-color: #ff3b30;
+}
+
+.dark {
+  --bg-color: #080a0c;
+  --surface-color: #12161b;
+  --border-color: rgba(255,255,255,0.12);
+  --text-color: #f5f5f7;
+  --primary-color: #0a84ff;
+  --primary-contrast: #ffffff;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-soft-bg: var(--bg-color);
+  --color-soft-card: var(--surface-color);
+  --color-soft-border: var(--border-color);
+  --color-soft-text: var(--text-color);
+  --color-soft-accent: var(--primary-color);
+  --color-soft-accent-contrast: var(--primary-contrast);
+  --color-soft-success: var(--success-color);
+  --color-soft-warning: var(--warning-color);
+  --color-soft-danger: var(--danger-color);
+}
+
+@layer base {
+  body {
+    @apply bg-soft-bg text-soft-text font-sans antialiased transition-colors duration-300;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-soft-text font-black uppercase tracking-tight;
+  }
+}
+
+@layer components {
+  .bento-card {
+    @apply bg-soft-card border border-soft-border rounded-[32px] p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all duration-500 hover:shadow-[0_12px_48px_rgba(0,0,0,0.1)] hover:scale-[1.005] hover:border-soft-accent/20;
+  }
+  
+  .bento-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8;
+  }
+  
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-xl border border-white/20 dark:bg-black/60 dark:border-white/10;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-95 disabled:opacity-50 bg-soft-accent text-soft-accent-contrast hover:bg-soft-accent/90 shadow-lg shadow-soft-accent/20 hover:shadow-xl;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-95 disabled:opacity-50 bg-soft-bg text-soft-text border border-soft-border hover:bg-soft-card hover:shadow-md;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-soft-bg border border-soft-border rounded-2xl outline-none focus:ring-2 focus:ring-soft-accent/20 focus:border-soft-accent transition-all font-bold text-soft-text placeholder:text-soft-text/20;
+  }
+
+  .label-caps {
+    @apply block text-[10px] font-black text-soft-text/40 uppercase mb-2 tracking-widest ml-1;
+  }
+}
+
+.dark .bento-card {
+  @apply bg-soft-card border-soft-border shadow-none hover:border-soft-accent/30;
+}
+
+.dark .glass-effect {
+  @apply bg-black/60 border-white/10;
+}
+
+/* Custom styles for the paper-style editor */
+.quill-paper-editor .ql-container.ql-snow {
+  border: none !important;
+  font-family: 'Inter', sans-serif;
+  font-size: 11pt;
+  background: transparent !important;
+}
+
+.quill-paper-editor .ql-editor {
+  padding: 0 !important;
+  min-height: unset !important;
+}
+
+.quill-paper-editor .ql-toolbar.ql-snow {
+  border: none !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  background: white;
+  position: sticky;
+  top: -20mm;
+  z-index: 10;
+  margin: -20mm -20mm 10mm -20mm;
+  padding: 10px 20mm !important;
+}
+
+.quill-paper-editor .ql-editor img {
+  max-width: 100%;
+  height: auto;
+}
+
+@layer utilities {
+  .animate-pulse-soft {
+    animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(0.98); }
+}
+
+@layer base {
+  body {
+    @apply bg-soft-bg text-soft-text font-sans antialiased transition-colors duration-300;
+  }
+}
+
+.signature-canvas {
+  width: 100%;
+  height: 200px;
+  background-color: #f9fafb;
+}
+
+/* Quill Content Styling for Preview */
+.break-words {
+  font-family: 'Inter', sans-serif;
+}
+
+.break-words h1 { font-size: 2em; font-weight: bold; margin-bottom: 0.5em; }
+.break-words h2 { font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em; }
+.break-words h3 { font-size: 1.25em; font-weight: bold; margin-bottom: 0.5em; }
+.break-words p { margin-bottom: 1em; }
+.break-words ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1em; }
+.break-words ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 1em; }
+.break-words a { color: #0071e3; text-decoration: underline; }
+.break-words img { max-width: 100%; height: auto; border-radius: 8px; }
+.break-words blockquote { border-left: 4px solid #e2e8f0; padding-left: 1em; font-style: italic; color: #64748b; }
