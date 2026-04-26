@@ -1,0 +1,165 @@
+/* src/styles/obrax-branding.css
+   Estilos da assinatura OBRAX — sidebar e laudos
+   Funciona em tema claro, escuro e na impressão/PDF */
+
+/* ─── Sidebar ─────────────────────────────────────────────────────────────── */
+.obrax-sidebar-signature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 14px;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.06);
+  user-select: none;
+}
+
+/* Tema claro */
+.obrax-sidebar-signature__label {
+  font-size: 10px;
+  color: #c0c4cc;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.obrax-sidebar-signature__link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+.obrax-sidebar-signature__link:hover {
+  opacity: 1;
+}
+
+.obrax-sidebar-signature__icon {
+  width: 14px;
+  height: 14px;
+  background: #2563eb;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.obrax-sidebar-signature__icon svg {
+  width: 8px;
+  height: 8px;
+  stroke: #ffffff;
+}
+
+.obrax-sidebar-signature__name {
+  font-size: 10px;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0.05em;
+}
+
+/* Tema escuro — sidebar escura (#0f1e38 etc.) */
+.dark .obrax-sidebar-signature {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+.dark .obrax-sidebar-signature__label {
+  color: #2d4a6a;
+}
+
+.dark .obrax-sidebar-signature__icon {
+  background: rgba(37, 99, 235, 0.25);
+}
+
+.dark .obrax-sidebar-signature__icon svg {
+  stroke: #4a7abf;
+}
+
+.dark .obrax-sidebar-signature__name {
+  color: #2d4a6a;
+}
+
+/* ─── Laudos / PDFs ────────────────────────────────────────────────────────── */
+.obrax-report-signature {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 8px 0 0;
+  margin-top: 8px;
+  border-top: 0.5px solid #e9ecef;
+}
+
+.obrax-report-signature__label {
+  font-size: 9px;
+  color: #9ca3af;
+  letter-spacing: 0.04em;
+}
+
+.obrax-report-signature__badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px 3px 5px;
+  border: 0.5px solid #e9ecef;
+  border-radius: 6px;
+  background: #fafafa;
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+
+.obrax-report-signature__badge:hover {
+  border-color: #2563eb;
+}
+
+.obrax-report-signature__icon {
+  width: 16px;
+  height: 16px;
+  background: #2563eb;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.obrax-report-signature__icon svg {
+  width: 9px;
+  height: 9px;
+  stroke: #ffffff;
+}
+
+.obrax-report-signature__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.obrax-report-signature__text strong {
+  font-size: 10px;
+  font-weight: 600;
+  color: #374151;
+  letter-spacing: 0.02em;
+}
+
+.obrax-report-signature__text span {
+  font-size: 8px;
+  color: #9ca3af;
+}
+
+/* ─── Impressão / geração PDF ──────────────────────────────────────────────── */
+@media print {
+  .obrax-sidebar-signature {
+    display: none; /* sidebar não vai para o PDF */
+  }
+
+  .obrax-report-signature {
+    display: flex !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .obrax-report-signature__icon {
+    background: #2563eb !important;
+  }
+}
