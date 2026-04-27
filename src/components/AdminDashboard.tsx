@@ -1022,7 +1022,13 @@ export default function AdminDashboard({ profile }: Props) {
     doc.text(tech?.name || '____________________', 55, currentY + 10, { align: 'center' });
     doc.text('Assinatura do Cliente', 155, currentY + 5, { align: 'center' });
     doc.text(os.clientName || '____________________', 155, currentY + 10, { align: 'center' });
-
+if (settings?.plan !== 'enterprise') {
+  const pgH = doc.internal.pageSize.getHeight();
+  doc.setFontSize(7);
+  doc.setTextColor(180, 180, 180);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Documento gerado por OBRAX — Gestão Pós-Obra · obrax.com.br', 105, pgH - 6, { align: 'center' });
+}
     if (preview) {
       window.open(doc.output('bloburl'), '_blank');
     } else {
@@ -2339,7 +2345,13 @@ export default function AdminDashboard({ profile }: Props) {
     doc.text('CIÊNCIA DA GESTÃO', 155, currentY + 5, { align: 'center' });
     doc.setFont('helvetica', 'normal');
     doc.text(settings.companyName || 'OBRAX ENGENHARIA', 155, currentY + 10, { align: 'center' });
-
+if (settings?.plan !== 'enterprise') {
+  const pgH = doc.internal.pageSize.getHeight();
+  doc.setFontSize(7);
+  doc.setTextColor(180, 180, 180);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Documento gerado por OBRAX — Gestão Pós-Obra · obrax.com.br', 105, pgH - 6, { align: 'center' });
+}
     doc.save(`Laudo_Pericial_${os.id.toUpperCase()}.pdf`);
     setIsGeneratingPericialReport(false);
   };
