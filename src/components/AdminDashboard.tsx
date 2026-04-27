@@ -3054,17 +3054,9 @@ if (settings?.plan !== 'enterprise') {
 {settings?.plan !== 'enterprise' && (
   <div className="flex items-center justify-center gap-1.5 py-2 border-t border-soft-border/40">
     <span className="text-[9px] text-soft-text/20 font-medium">desenvolvido por</span>
-    
-      href="https://obrax.com.br"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center gap-1 opacity-30 hover:opacity-70 transition-opacity"
-    >
+    <a href="https://obrax.com.br" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 opacity-30 hover:opacity-70 transition-opacity">
       <span className="w-[13px] h-[13px] bg-soft-accent rounded-[3px] flex items-center justify-center flex-shrink-0">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" className="w-[8px] h-[8px]">
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" className="w-[8px] h-[8px]"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </span>
       <span className="text-[10px] font-semibold text-soft-text/60 tracking-wide">OBRAX</span>
     </a>
